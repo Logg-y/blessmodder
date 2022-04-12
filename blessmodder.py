@@ -6,7 +6,7 @@ import binascii
 import stat
 import traceback
 
-ver = "1.0.0"
+ver = "1.0.1"
 domver = 5.57
 
 BLESS_TABLE_SIZE = 100
@@ -94,7 +94,7 @@ class BlessEffect(object):
                 break
             self.scales.append((scaleid, scaleamt))
     def clear(self):
-        self.name = "New Bless Effect"
+        self.name = b"New Bless Effect"
         self.path1 = 0
         self.path1level = 0
         self.path2 = -1
@@ -215,11 +215,6 @@ class DBM(object):
                         raise ValueError(f"Attempted to select invalid bless index {blessindex}, must be 0-99")
                     continue
 
-                m = re.match(r"#clear", line)
-                if m is not None:
-                    blesseffect.clear()
-                    continue
-
                 m = re.match(r"#cleareffects", line)
                 if m is not None:
                     blesseffect.effects = []
@@ -228,6 +223,11 @@ class DBM(object):
                 m = re.match(r"#clearscales", line)
                 if m is not None:
                     blesseffect.scales = []
+                    continue
+
+                m = re.match(r"#clear", line)
+                if m is not None:
+                    blesseffect.clear()
                     continue
 
                 m = re.match(r"#addeffect\W+(\d*)\W+?([-0-9]*)", line)

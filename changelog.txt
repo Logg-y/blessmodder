@@ -1,0 +1,9 @@
+
+v1.0.1 - 12/04/22
+
+Fixed #clearscales and #cleareffects being always interpreted as #clear
+Fixed #clear resulting in a bless effect name that crashed when trying to write it into the table
+
+v1.0.0 - 12/04/22
+
+Initial release
