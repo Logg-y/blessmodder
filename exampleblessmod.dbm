@@ -1,0 +1,126 @@
+
+#selectbless 1
+#clear
+#name "Morale +10"
+#path1 0
+#path1level 5
+#addeffect 308 10
+#multipick
+#end
+
+#selectbless 2
+#clear
+#name "+3 Fire Resistance"
+#path1 0
+#path1level 2
+#addeffect 198 3
+#multipick
+#end
+
+#selectbless 3
+#clear
+#name "Temp Fire Gem (not assassins)"
+#path1 0
+#path1level 7
+#addeffect 344 1 	-- temp fire gems
+#addeffect 213 -10	-- assassin
+#addeffect 298 -10	-- seduction
+#addeffect 224 -10	-- corruption
+#addeffect 210 -10	-- dream seduction
+#addeffect 247 -10	-- siren beckon
+#alwaysactive
+#end
+
+#selectbless 4
+#clear
+#name "+1 Defence Organiser"
+#path1 0
+#path1level 3
+#addeffect 352 1 	-- defence organiser
+#alwaysactive
+#multipick
+#end
+
+#selectbless 5
+#clear
+#name "+6 Attack Skill"
+#path1 0
+#path1level 5
+#addeffect 150 6 	-- att skill
+#multipick
+#end
+
+#selectbless 6
+#clear
+#name "Sight Vengeance"
+#path1 0
+#path1level 10
+#addeffect 244 1 	-- sight vengeance +1 pen
+#end
+
+#selectbless 7
+#clear
+#name "Sun Awe"
+#path1 0
+#path1level 5
+#addeffect 605 1 	-- sun awe
+#end
+
+#selectbless 8
+#clear
+#name "Flaming Arrows"
+#path1 0
+#path1level 3
+#effect10buffs 8388608	-- flaming arrows
+#end
+
+#selectbless 9
+#clear
+#name "Banefire Shield 6AP"
+#path1 0
+#path1level 5
+#path2 5
+#path2level 4
+#reqscale 3 2
+-- unfortunately speciallook (330) doesn't work added this way
+#addeffect 222 6 	-- banefire shield
+#end
+
+#selectbless 10
+#clear
+#name "Flaming Weapons 1AP (stacking)"
+#path1 0
+#path1level 1
+#addeffect 545 1 	-- flaming weapons
+#multipick
+#end
+
+#selectbless 11
+#clear
+#name "Acid Splash 8AP"
+#path1 0
+#path1level 5
+#path2 2
+#path2level 2
+#addeffect 497 8 	-- acid splash
+#end
+
+#selectbless 12
+#clear
+#name "Nonincarnate N7 Bless"
+#path1 6
+#path1level 4
+#path2 6
+#path2level 3
+#addeffect 497 8 	-- acid splash
+#end
+
+#selectbless 13
+#clear
+#name "Innate Caster 5 (dumb)"
+#path1 4
+#path1level 10
+#addeffect 334 420 	-- innate
+#end
+
+
