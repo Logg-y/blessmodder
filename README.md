@@ -17,7 +17,7 @@ Windows users can use the .exe provided in releases. Otherwise, the blessmodder.
 
 Running this will attempt to apply all found .dbm files to all executables in the folder. This will create a handful of new executables, named after the .dbm file loaded into them. It is then necessary to run the correspondingly named executable to get its effects (**not** running the game through Steam).
 
-Some antivirus vendors seem to incorrectly flag all execuables built with PyInstaller as malicious. There is not much I can do about this, the alternatives I am aware of do not support the all-in-one-file approach that keeps your Dominions folder quite clean. If this bothers you, you can install Python 3 on Windows which will allow you to run this from source. I have nothing to hide here, or this would not be open source.
+Some antivirus vendors seem to incorrectly flag all executables built with PyInstaller as malicious. There is not much I can do about this, the alternatives I am aware of do not support the all-in-one-file approach that keeps your Dominions folder quite clean. If this bothers you, you can install Python 3 on Windows which will allow you to run this from source. I have nothing to hide here, or this would not be open source.
 
 ## Caveats
 
@@ -27,7 +27,7 @@ Most custom bless effects will NOT show in the bless effect list when you click 
 
 There is nothing preventing opening non-blessmodded games with a bless modded executable, but battle reports involving blessed units with go out of sync. So long as the game is hosted on the correct version, the only side effect here are the replay issues.
 
-A pretender creatied with a bless modded executable will likely produce some form of invalid pretender if submitted to a game with a different bless effect set, much like modded pretenders do in vanilla. This should be correctly flagged as cheating by the usual system.
+A pretender created with a bless modded executable will likely produce some form of invalid pretender if submitted to a game with a different bless effect set, much like modded pretenders do in vanilla. This should be correctly flagged as cheating by the usual system.
 
 Multiple scale requirements are supported, but unfortunately the game renders their icons very nearly on top of each other.
 
@@ -37,7 +37,7 @@ It is not possible to make an incarnate bless with a bless point cost lower than
 
 It is probably worth being familiar with basic .dm syntax and structures before moving on to writing these.
 
-Bless mod files must be saved with the .dbm extension. This was made up arbitarily (for **D**ominions **B**less **M**od), but this program will only look for bless mod files with this extension.
+Bless mod files must be saved with the .dbm extension. This was made up arbitrarily (for **D**ominions **B**less **M**od), but this program will only look for bless mod files with this extension.
 
 This repository contains an example bless mod for reference.
 
@@ -45,7 +45,7 @@ Unlike .dm files, there are no top-level name files. Two dashes (--) can (and sh
 
   * **\#selectbless** (id)
     * Selects the given bless ID. The valid ID range is 0 through 99 inclusive. 
-    * Bless effect 0 contains the inherent Morale +1 effect that all player blesses get for free. This may be edited. Giving it a cost is unwise as its cost will be dedicted from *every* pretender creation. 
+    * Bless effect 0 contains the inherent Morale +1 effect that all player blesses get for free. This may be edited. Giving it a cost is unwise as its cost will be deducted from *every* pretender creation. 
     * The game stops reading bless effects after finding the first empty bless effect, which means that any actual effects after a "gap" or empty bless effect will be ignored. A clumsy dump of vanilla bless effects and IDs can be found in this repository.
   * **\#clear**
     * Clears all data for the selected bless effect, much like the #clear command in normal .dm files.
