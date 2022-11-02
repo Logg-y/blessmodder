@@ -101,6 +101,10 @@ Unlike .dm files, there are no top-level name files. Two dashes (--) can (and sh
     
 An effect is incarnate if it has a path 1 level of 5 or higher. Non-incarnate higher level effects can be made by setting path2 to the same as path1, which will cause the split costs to be added together. The example bless mod contains an example of a non-incarnate N7 bless using this trick.
 
+## Technical stuff
+
+I wrote a bit about the bless table format [here](https://docs.google.com/spreadsheets/d/1kK1nb0Sse2DZg-cyjPappypgIE_lpnPmLIKCqpdYRJ8/edit#gid=0). It's not terribly formal, but it might help somebody.
+
 ## Thanks
 
 Illwinter, for making Dominions, and for making bless data in such a nice table that permits so many new options.

@@ -168,6 +168,19 @@ class BlessTable(object):
             content = content[BLESS_TABLE_RECORD_SIZE:]
             self.blesses.append(eff)
     def pack(self):
+        # The executable doesn't actually stop at 100 bless effects, it will keep going into whatever data is next.
+        # It keeps going until it sees a path1 value that is <0
+        # This includes interpreting whatever is packed after the bless data table as blesses, which typically
+        # will have no or junk as names.
+        # Most of these are invalid and not shown on the table due to a path1 > 7 and/or path1level == 0
+        # But, on some builds of dom5, the resulting "bless effects" can result in some that pass the checks
+        # to be displayed in game
+        # And this is why I have to take away one of the bless effect slots :(
+        self.blesses[99].path1 = -1
+        self.blesses[99].path1level = -1
+        self.blesses[99].path2 = -1
+        self.blesses[99].path2level = -1
+        self.blesses[99].name = b"Blessmodder-end"
         out = b""
         for eff in self.blesses:
             out += eff.pack()
@@ -213,8 +226,8 @@ class DBM(object):
                 m = re.match(r"#selectbless\W+(\d*)", line)
                 if m is not None:
                     blessindex = int(m.group(1))
-                    if blessindex < 0 or blessindex >= 100:
-                        raise ValueError(f"Attempted to select invalid bless index {blessindex}, must be 0-99")
+                    if blessindex < 0 or blessindex >= 99:
+                        raise ValueError(f"Attempted to select invalid bless index {blessindex}, must be 0-98")
                     continue
 
                 m = re.match(r"#cleareffects", line)
