@@ -5,9 +5,10 @@ import re
 import binascii
 import stat
 import traceback
+import argparse
 
-ver = "1.0.1"
-domver = 5.57
+ver = "1.0.2"
+domver = 5.58
 
 BLESS_TABLE_SIZE = 100
 BLESS_TABLE_RECORD_SIZE = 0x78
@@ -37,10 +38,11 @@ class Executable(object):
         with open(self.fp, "rb") as f:
             self.content = f.read()
         self.blesstableOffset = None
-    def getBlesstable(self):
-        self._findBlesstable()
+    def getBlesstable(self, ignorecrc=False):
+        if self.blesstableOffset is None:
+            self._findBlesstable()
         retval = self.content[self.blesstableOffset:self.blesstableOffset+BLESS_TABLE_LENGTH]
-        if binascii.crc32(retval) != BLESS_TABLE_CRC32:
+        if not ignorecrc and binascii.crc32(retval) != BLESS_TABLE_CRC32:
             raise ValueError(f"Checksum of bless table does not match, maybe Dominions was updated."
                              f"crc32 = {binascii.crc32(retval)}, expected {BLESS_TABLE_CRC32}")
         return retval
@@ -244,7 +246,7 @@ class DBM(object):
                     if effid < 0 or effid > 5:
                         raise ValueError(f"{self.fp}:{linenum} Bad scale ID: {effid}, must be 0-5 inclusive")
                     if effmag > 3 or effmag < -3 or effmag == 0:
-                        raise ValueError(f"{self.fp}:{linenum} Bad scale value: {mag}, must be nonzero and -3 to +3")
+                        raise ValueError(f"{self.fp}:{linenum} Bad scale value: {effmag}, must be nonzero and -3 to +3")
                     blesseffect.addScale(effid, effmag)
                     continue
 
@@ -367,10 +369,33 @@ def dumpVanillaBlesses(fp=None, outfp="vanillablesses.txt"):
         for i, bless in enumerate(bt.blesses):
             f.write(f"{i}: {bless}\n")
 
+def dumpExecutable(executablefp, offset):
+    print(f"Dumping bless table from {executablefp} offset {offset}...")
+    ex = Executable(executablefp)
+    ex.blesstableOffset = offset
+    rawblessdata = ex.getBlesstable(True)
+    bt = BlessTable(rawblessdata)
+    print(os.getcwd())
+    with open(f"{executablefp}-blesstable.txt", "w") as f:
+        for i, bless in enumerate(bt.blesses):
+            f.write(f"{i}: {bless}\n")
+    print(f"Finished writing {executablefp}-blesstable.txt")
+
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description=f"Blessmodder v{ver} - intended for Dominions version {domver}")
+    parser.add_argument("-d", "--dumpexecutable", help="Path to binary to dump bless table from")
+    parser.add_argument("-o", "--dumpexecutableoffset", help="Offset to start of bless table in binary")
+    args = parser.parse_args()
     try:
-        main()
+        if args.dumpexecutable is not None:
+            if args.dumpexecutableoffset is None:
+                raise ValueError("Cannot dump executable bless table without an offset")
+            dumpExecutable(args.dumpexecutable, int(args.dumpexecutableoffset))
+        elif args.dumpexecutableoffset is not None:
+            raise ValueError("Cannot dump executable: no path specified")
+        else:
+            main()
         input("Press ENTER to exit.")
     except Exception:
         print(traceback.format_exc())
